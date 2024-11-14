@@ -1,7 +1,8 @@
 #!/bin/bash
 
 # Define the install directory
-INSTALL_DIR="/usr/local/odh"
+INSTALL_DIR=${1:-"$HOME/bin/odh"}
+git config --global --add safe.directory "$INSTALL_DIR"
 
 # Remove the existing install directory if it exists (for updates)
 if [[ -d "$INSTALL_DIR" ]]; then
@@ -11,7 +12,7 @@ fi
 
 # Ensure the install directory exists, then copy everything
 sudo mkdir -p "$INSTALL_DIR"
-sudo cp -r ./* "$INSTALL_DIR/"  # Copy everything in the current directory to the install directory
+sudo cp -r . "$INSTALL_DIR/"
 
 # Determine which shell configuration file to use
 SHELL_CONFIG="$HOME/.bashrc"
@@ -30,3 +31,4 @@ echo "Alias 'odh' added to $SHELL_CONFIG"
 source "$SHELL_CONFIG"
 
 echo "Installation complete. You can now use 'odh' as a global command."
+echo "Please restart your terminal or run 'source $SHELL_CONFIG' to start using 'odh'."
